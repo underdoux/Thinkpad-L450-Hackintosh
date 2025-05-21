@@ -145,15 +145,3 @@ Next Steps:
 * khronokernel, for providing [the vanilla guide](https://khronokernel-2.gitbook.io/opencore-vanilla-desktop-guide/) which this config.plist is based on
 * RehabMan, for his guides on [patching ACPI for battery status](https://www.tonymacx86.com/threads/guide-how-to-patch-dsdt-for-working-battery-status.116102/) and [converting those patches for hotpatching](https://www.tonymacx86.com/threads/guide-using-clover-to-hotpatch-acpi.200137/)
 * [CorpNewt](https://github.com/CorpNewt), for Lilu-and-Friends, ProperTree, GenSMBIOS, and SSDTTime
-
-## Contact
-
-For general questions regarding this build, I can be reached at:
-
-* Discord: `@HackinDoge#9460`
-* Reddit: [/u/HackinDoge](https://reddit.com/u/HackinDoge)
-* OSx86.net: [HackinDoge](https://www.osx86.net/profile/345012-hackindoge/)
-
-Please ensure that you've read through all the linked materials before reaching out.
-
-If there is a critical misconfiguration, error, or other issue with any of the files in this build, or if there is a file(s) that need to be added, please open an Issue here on GitHub so I can get that resolved.
