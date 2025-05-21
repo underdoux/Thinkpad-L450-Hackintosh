@@ -32,6 +32,60 @@ If a function is not explicitly mentioned below, it is most likely working.
 |WiFi|Working with AirportItlwm.kext|
 |Bluetooth|Working with genuine Apple BCM94360CS|
 
+## Troubleshooting Roadmap
+
+### 1. Volume/Brightness Keys After Sleep
+Current Status: Not Working
+Investigation Plan:
+- [ ] Check SSDT-KBD.aml implementation
+- [ ] Verify BrightnessKeys.kext is present and loading
+- [ ] Test alternative ACPI patches for keyboard mapping
+- [ ] Monitor IORegistry during sleep/wake cycle
+Next Steps:
+1. Update VoodooPS2Controller.kext to latest version
+2. Implement SSDT-KEYS patch
+3. Add KeySupport="Yes" in config.plist
+4. Test with different keyboard layouts in macOS
+
+### 2. Battery Status Lag
+Current Status: Laggy after sleep
+Investigation Plan:
+- [ ] Review current SSDT-BATT.aml implementation
+- [ ] Check SMCBatteryManager.kext version
+- [ ] Monitor battery information reporting
+- [ ] Test ECEnabler.kext implementation
+Next Steps:
+1. Update SMCBatteryManager.kext
+2. Implement updated battery patches from RehabMan guide
+3. Add ECEnabler.kext
+4. Test different ACPI battery reporting methods
+
+### 3. Sleep/Wake Optimization
+Current Status: Affects multiple functions
+Investigation Plan:
+- [ ] Review DSDT sleep methods
+- [ ] Check power management settings
+- [ ] Monitor wake triggers
+- [ ] Test different sleep modes
+Next Steps:
+1. Implement SSDT-SLEEP patch
+2. Update power management kexts
+3. Test hibernation fixes
+4. Monitor sleep/wake logs
+
+### 4. Graphics Performance
+Current Status: Working but could be optimized
+Investigation Plan:
+- [ ] Review current framebuffer patches
+- [ ] Check WhateverGreen.kext configuration
+- [ ] Monitor external display handling
+- [ ] Test different IGPU properties
+Next Steps:
+1. Update WhateverGreen.kext
+2. Implement optimized framebuffer patches
+3. Test different display configurations
+4. Monitor graphics performance metrics
+
 ## Known Issues & Troubleshooting for macOS Monterey
 
 ### Common Issues:
