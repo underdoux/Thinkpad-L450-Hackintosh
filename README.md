@@ -138,8 +138,46 @@ Next Steps:
 4. Set MinKernel to "20.0.0" for Monterey compatibility
 5. Enable required patches for Monterey in config.plist
 
-## Credits
+## Required Downloads
 
+### Essential Kexts
+Download the latest versions from Acidanthera (https://github.com/acidanthera):
+- [VoodooPS2Controller.kext](https://github.com/acidanthera/VoodooPS2/releases) - For keyboard and trackpad
+- [BrightnessKeys.kext](https://github.com/acidanthera/BrightnessKeys/releases) - For brightness control
+- [ECEnabler.kext](https://github.com/1Revenger1/ECEnabler/releases) - For battery status
+- [VirtualSMC.kext](https://github.com/acidanthera/VirtualSMC/releases) - Includes SMCBatteryManager.kext
+- [Lilu.kext](https://github.com/acidanthera/Lilu/releases) - Required for many other kexts
+- [WhateverGreen.kext](https://github.com/acidanthera/WhateverGreen/releases) - For graphics
+
+### Required Tools
+- [ProperTree](https://github.com/corpnewt/ProperTree) - For editing config.plist
+- [MaciASL](https://github.com/acidanthera/MaciASL/releases) - For ACPI editing
+- [IORegistryExplorer](https://github.com/khronokernel/IORegistryClone/blob/master/ioreg-302.zip) - For system debugging
+- [Hackintool](https://github.com/headkaze/Hackintool/releases) - For system information and patching
+
+### Optional but Recommended
+- [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) - For generating SMBIOS data
+- [USBMap](https://github.com/corpnewt/USBMap) - For USB port mapping
+- [HibernationFixup](https://github.com/acidanthera/HibernationFixup/releases) - For sleep/wake issues
+
+### Installation Steps
+1. Download the latest release of each kext/tool
+2. For kexts:
+   - Extract the .zip files
+   - Copy only the .kext files to EFI/OC/Kexts/
+   - Update config.plist using ProperTree to add new kexts
+3. For tools:
+   - ProperTree and MaciASL: Extract and run directly
+   - IORegistryExplorer: Copy to Applications folder
+   - Hackintool: Install normally as a macOS application
+
+### Important Notes
+- Always download the latest stable versions
+- Back up your current EFI folder before making changes
+- Update config.plist after adding new kexts
+- Reset NVRAM after major kext updates
+
+## Credits
 * [jsassu20](https://github.com/jsassu20/Lenovo-T450-Catalina-OpenCore),  [EchoSpirit](https://github.com/EchoEsprit/Hackintosh-Catalina-OpenCore-Lenovo-T450s-efi), and [Sniki](https://www.tonymacx86.com/threads/guide-lenovo-thinkpad-t440s-using-clover-uefi-hotpatch.279492/), whose configs were studied to put together this build
 * acidanthera for OpenCorePkg et all
 * khronokernel, for providing [the vanilla guide](https://khronokernel-2.gitbook.io/opencore-vanilla-desktop-guide/) which this config.plist is based on
