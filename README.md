@@ -2,7 +2,7 @@
 
 ```
 OS: macOS Monterey
-Host: Hackintosh (SMBIOS: MacBookPro12,1)
+Host: Hackintosh (SMBIOS: MacBookAir7,2)
 CPU: Intel i5-5300U (4) @ 2.30GHz
 GPU: Intel HD Graphics 5500
 Memory: 16GB DDR3 1600MHz
@@ -11,6 +11,7 @@ OpenCore: 1.0.4
 
 ## Latest Update Changes
 - Updated to OpenCore 1.0.4
+- Changed SMBIOS to MacBookAir7,2 (better compatibility with Broadwell CPU and Intel HD 5500)
 - Updated required drivers:
   - OpenRuntime.efi
   - OpenCanopy.efi
@@ -120,13 +121,38 @@ Next Steps:
 ## USB Installation Guide
 
 ### Prerequisites
-1. A USB drive (minimum 16GB)
-2. InstallAssist.pkg file
-3. Access to a working Mac or existing Hackintosh
-4. [OpenCore](https://github.com/acidanthera/OpenCorePkg/releases) 1.0.4
-5. All required kexts (available in Requirement/Kext folder)
+1. Hardware Requirements:
+   - USB drive (minimum 16GB)
+   - Working Mac or existing Hackintosh for preparation
+
+2. Required Files (Offline Installation):
+   - InstallAssist.pkg for macOS Monterey
+   - [OpenCore](https://github.com/acidanthera/OpenCorePkg/releases) 1.0.4
+   - Required kexts (available in Requirement/Kext folder)
+   - ProperTree for config.plist editing
+   - GenSMBIOS for serial generation
+
+3. File Organization:
+   - Create this folder structure on your USB:
+     ```
+     USB_DRIVE/
+     ├── InstallAssist.pkg
+     ├── OpenCore-1.0.4/
+     ├── Kexts/
+     ├── Tools/
+     │   ├── ProperTree/
+     │   └── GenSMBIOS/
+     └── Drivers/
+     ```
+
+4. Installation Notes:
+   - This guide supports offline installation
+   - No internet connection required during installation
+   - Keep backups of all files on a separate drive
 
 ### Creating the USB Installer
+
+Note: For offline installation, you'll be using the pre-downloaded InstallAssist.pkg instead of downloading from the App Store.
 
 1. Format USB Drive:
    ```bash
@@ -161,12 +187,14 @@ Next Steps:
    - Run GenSMBIOS.command
    - Select option 1 to download MacSerial
    - Select option 2 to generate SMBIOS
-   - Generate for MacBookPro12,1
+   - Generate for MacBookAir7,2 (Better compatibility for this model)
    - Copy the generated values to config.plist:
-     * Serial Number
-     * Board Serial
-     * SmUUID
-     * Apple ROM
+     * Serial Number (e.g., C02X75YHG940)
+     * Board Serial (e.g., C02833404GUG91Q1H)
+     * SmUUID (e.g., 312C1C09-B4DF-4099-9FFB-2BC3F1508175)
+     * Apple ROM (e.g., DC0C5C0F680B)
+
+   Note: The example values above are for reference only. Generate your own unique values using GenSMBIOS.
 
 6. Verify Installation Files:
    - Check EFI/OC/Kexts contains:
