@@ -152,6 +152,68 @@ Next Steps:
 
 ### Creating the USB Installer
 
+#### Method 1: Using Windows 10
+
+Important Notes:
+- Make sure to run all tools as Administrator
+- Disable Windows Security Real-time protection temporarily during the process
+- Some tools might trigger antivirus warnings - these are false positives
+- Back up any important data before starting
+
+1. Required Windows Tools:
+   - [rufus](https://rufus.ie/en/) - For formatting USB drive
+   - [TransMac](https://www.acutesystems.com/scrtm.htm) - For writing macOS installer
+   - [Explorer++](https://explorerplusplus.com/) - For accessing EFI partition (or any other EFI mounter)
+
+2. Prepare USB Drive:
+   - Insert USB drive (minimum 16GB)
+   - Open Rufus
+   - Select your USB drive
+   - Choose GPT partition scheme
+   - Choose FAT32 file system
+   - Click START
+   - After formatting, keep the USB drive inserted
+
+3. Create macOS Installer:
+   - Open TransMac (Run as Administrator)
+   - Right-click USB drive → Format Disk for Mac
+   - Right-click USB drive → Restore with Disk Image
+   - Select your InstallAssist.pkg
+   - Wait for the process to complete
+
+4. Mount EFI Partition:
+   - Open Explorer++ as Administrator
+   - Tools → Mount Volume → Select EFI partition
+   - Copy OpenCore files to EFI partition:
+     ```
+     EFI/
+     ├── BOOT/
+     │   └── BOOTx64.efi
+     └── OC/
+         ├── ACPI/
+         ├── Drivers/
+         ├── Kexts/
+         ├── Resources/
+         ├── Tools/
+         ├── config.plist
+         └── OpenCore.efi
+     ```
+
+5. Verify Files:
+   - Check EFI/OC/config.plist exists
+   - Verify all kexts are present in EFI/OC/Kexts
+   - Confirm required drivers in EFI/OC/Drivers
+
+6. Troubleshooting Windows Installation:
+   - If TransMac fails to restore, try using a different USB port (preferably USB 2.0)
+   - If Explorer++ can't mount EFI, try alternative tools like MiniTool Partition Wizard
+   - "Access Denied" errors: Right-click → Run as Administrator
+   - USB not bootable: Re-format with Rufus using GPT partition scheme
+   - InstallAssist.pkg not recognized: Verify file integrity and try re-downloading
+   - EFI partition not visible: Use Disk Management to verify partition layout
+
+#### Method 2: Using macOS
+
 Note: For offline installation, you'll be using the pre-downloaded InstallAssist.pkg instead of downloading from the App Store.
 
 1. Format USB Drive:
