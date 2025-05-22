@@ -1231,21 +1231,21 @@
 			<key>SecureBootModel</key>
 			<string>j137</string>
 			<key>MLB</key>
-			<string>C02140302D5DC2AD8</string>
+			<string>C02833404GUG91Q1H</string>
 			<key>ProcessorType</key>
 			<integer>0</integer>
 			<key>ROM</key>
-			<data>ESIzRFVm</data>
+			<data>DC0C5C0F680B</data>
 			<key>SpoofVendor</key>
 			<true/>
 			<key>SystemProductName</key>
-			<string>MacBookPro12,1</string>
+			<string>MacBookAir7,2</string>
 			<key>SystemMemoryStatus</key>
 			<string>Auto</string>
 			<key>SystemSerialNumber</key>
-			<string>C02Q4KYTFVH8</string>
+			<string>C02X75YHG940</string>
 			<key>SystemUUID</key>
-			<string>B9DA0046-AE91-4642-B45F-2A80B784B7D1</string>
+			<string>312C1C09-B4DF-4099-9FFB-2BC3F1508175</string>
 		</dict>
 		<key>UpdateDataHub</key>
 		<true/>

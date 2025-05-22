@@ -117,18 +117,118 @@ Next Steps:
 |------|--------|-------|-------|
 |<ul><li>Network<ul><li>All [Disabled]</li></ul></li><li>USB<ul><li>USB UEFI BIOS Support [Enabled]</li><li>USB 3.0 Mode [Enabled]</li></ul></li><li>Keyboard/Mouse<ul><li>Trackpoint [Enabled]</li><li>Trackpad [Enabled]</li></ul></li><li>Display<ul><li>Total Graphics Memory [512MB]</li></ul></li><li>CPU<ul><li>Intel (R) Hyper-Threading Technology [Enabled]</li></ul></li></ul>|<ul><li>Security Chip<ul><li>Security Chip [Disabled]</li></ul></li><li>Memory Protection<ul><li>Execution Prevention [Enabled]</li></ul></li><li>Virtualization<ul><li>All [Enabled]<ul><li>VT-d is safe because of OpenCore's `DisableIOMapper`</li></ul></li></ul></li><li>Secure Boot<ul><li>Secure Boot [Disabled]</li></ul></li></ul>|<ul><li>Startup<ul><li>UEFI/Legacy Boot [UEFI Only]<ul><li>CSM Support [No]</li></ul></li></ul></li></ul>|<ul><li>Restart<ul><li>OS Optimized Defaults [Enabled]</li></ul></li></ul>|
 
-## Installation Steps
+## USB Installation Guide
 
-1. Download OpenCore 1.0.4 from [OpenCore](https://github.com/acidanthera/OpenCorePkg/releases).
+### Prerequisites
+1. A USB drive (minimum 16GB)
+2. InstallAssist.pkg file
+3. Access to a working Mac or existing Hackintosh
+4. [OpenCore](https://github.com/acidanthera/OpenCorePkg/releases) 1.0.4
+5. All required kexts (available in Requirement/Kext folder)
 
-2. Required EFI drivers (already included in this repo):
-   - OpenRuntime.efi
-   - OpenCanopy.efi
-   - OpenHfsPlus.efi
+### Creating the USB Installer
 
-3. Generate new SMBIOS data with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) using MacBookPro12,1.
+1. Format USB Drive:
+   ```bash
+   # List all disks to find your USB drive
+   diskutil list
+   
+   # Replace N with your USB drive number
+   diskutil partitionDisk /dev/diskN GPT JHFS+ "USB" 100%
+   ```
 
-4. Copy the EFI folder to your EFI partition.
+2. Create macOS Installer:
+   ```bash
+   # Create installer (replace 'USB' with your drive name if different)
+   sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/USB
+   ```
+
+3. Mount EFI Partition:
+   ```bash
+   # Find the EFI partition
+   diskutil list
+   
+   # Mount EFI (replace N with USB disk number)
+   sudo diskutil mount /dev/diskNs1
+   ```
+
+4. Install OpenCore:
+   - Copy the entire EFI folder from this repository to the USB's EFI partition
+   - The structure should be: /Volumes/EFI/EFI/OC/
+
+5. Generate SMBIOS:
+   - Use GenSMBIOS tool from Requirement/Tools/GenSMBIOS
+   - Run GenSMBIOS.command
+   - Select option 1 to download MacSerial
+   - Select option 2 to generate SMBIOS
+   - Generate for MacBookPro12,1
+   - Copy the generated values to config.plist:
+     * Serial Number
+     * Board Serial
+     * SmUUID
+     * Apple ROM
+
+6. Verify Installation Files:
+   - Check EFI/OC/Kexts contains:
+     * Lilu.kext
+     * VirtualSMC.kext
+     * WhateverGreen.kext
+     * VoodooPS2Controller.kext
+     * Other required kexts
+   - Verify EFI/OC/Drivers has:
+     * OpenRuntime.efi
+     * OpenCanopy.efi
+     * OpenHfsPlus.efi
+
+### BIOS Configuration
+Before installation, configure BIOS settings as specified in the BIOS Settings section above.
+
+### Installation Steps
+
+1. Boot from USB:
+   - Insert the USB drive
+   - Power on the laptop
+   - Press F12 for boot menu
+   - Select your USB drive (UEFI option)
+
+2. macOS Installation:
+   - Select Disk Utility
+   - Format your target drive:
+     * Name: Monterey (or your preference)
+     * Format: APFS
+     * Scheme: GUID Partition Map
+   - Exit Disk Utility
+   - Select Install macOS
+   - Follow the installation prompts
+
+3. Post-Installation:
+   - Boot into the installed system
+   - Mount EFI partition of internal drive:
+     ```bash
+     # List disks
+     diskutil list
+     
+     # Mount EFI (replace N with internal disk number)
+     sudo diskutil mount /dev/diskNs1
+     ```
+   - Copy EFI folder from USB to internal drive's EFI partition
+
+4. Final Steps:
+   - Restart the system
+   - Remove the USB drive
+   - Verify all functions are working:
+     * WiFi/Bluetooth
+     * Audio
+     * Graphics
+     * Keyboard/Trackpad
+     * Battery status
+     * Sleep/Wake
+
+### Troubleshooting Installation
+- If installation fails, boot with -v flag for verbose mode
+- If graphics issues occur, try adding igfxonln=1 to boot args
+- For kernel panics, verify Lilu.kext loads first in config.plist
+- Check error messages in OpenCore boot picker
 
 ### Additional Steps for Monterey:
 
